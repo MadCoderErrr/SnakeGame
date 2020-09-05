@@ -74,14 +74,16 @@ def runGame():
                 XFOOD = round(random.randint(0, WINDOWWIDTH - SNAKEBLOCK) / 10.0) * 10.0
                 YFOOD = round(random.randint(0, WINDOWHEIGHT - SNAKEBLOCK) / 10.0) * 10.0
                 SNAKELENGTH += 1
-                SNAKEHEAD = []
-                SNAKEHEAD.append(X)
-                SNAKEHEAD.append(Y)
-                SNAKELIST.append(SNAKEHEAD)
+            SNAKEHEAD = []
+            SNAKEHEAD.append(X)
+            SNAKEHEAD.append(Y)
+            SNAKELIST.append(SNAKEHEAD)
+                
+            if len(SNAKELIST) > SNAKELENGTH:
+                del SNAKELIST[0]
 
         if X >= WINDOWWIDTH or X <= 0 or Y >= WINDOWHEIGHT or Y <= 0:
-            gameOver = True
-        showScore(SNAKELENGTH, BLUE)       
+            gameOver = True 
         DISPLAYSURF.fill(BGCOLOR)   
         pygame.draw.rect(DISPLAYSURF, GREEN, (X, Y, SNAKEBLOCK, SNAKEBLOCK))
         makeSnake(SNAKELIST, SNAKEBLOCK)
@@ -104,7 +106,7 @@ def message(msg, color):
 
 def makeSnake(SNAKELIST, SNAKEBLOCK):
     for s in SNAKELIST:
-        pygame.draw.rect(DISPLAYSURF, GREEN, (round(s[0]), round(s[1]), SNAKEBLOCK, SNAKEBLOCK))
+        pygame.draw.rect(DISPLAYSURF, GREEN, (s[0], s[1], SNAKEBLOCK, SNAKEBLOCK))
         
         
 def randomFood(SNAKEBLOCK):
@@ -112,8 +114,8 @@ def randomFood(SNAKEBLOCK):
     
     
 def showScore(score, color):
-    for a in range(score - 1):
-        message("Your score: %s" % a, BLUE)
+    SCORE = score - 1
+    message("Your score: %s" % SCORE, BLUE)
     
         
 if __name__ == '__main__':
